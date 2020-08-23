@@ -5,10 +5,11 @@
 -git init
 -git add README.md
 -git commit -m "first commit"
--git remote add origin https://github.com/samuelikz/novo.git
+-git remote add origin 
 -git push -u origin master
+-git push origin master --force
  
--git remote add origin https://github.com/samuelikz/novo.git
+-git remote add origin 
 -git push -u origin master
 
 - git config --global user.name "Your Name" 
