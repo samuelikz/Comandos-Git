@@ -26,10 +26,10 @@ As configurações do GIT são armazenadas no arquivo **.gitconfig** localizado 
 As configurações realizadas através dos comandos abaixo serão incluídas no arquivo citado acima.
 
 ##### Setar usuário
-	git config --global user.name "Leonardo Comelli"
+	git config --global user.name "Jane Doe"
 
 ##### Setar email
-	git config --global user.email leonardo@software-ltda.com.br
+	git config --global user.email jane.doe@example.com
 	
 ##### Setar editor
 	git config --global core.editor vim
@@ -177,34 +177,33 @@ A alteração do diretório pode ser realizada através do comando abaixo:
 
 ## Repositório Remoto
 
+### Vincular repositório local com um repositório remoto
+-	git remote add origin git@github.com:jane-doe/main.git
++	git remote add origin git@github.com:jane-doe/<seu-repo>.git
+
 ### Exibir os repositórios remotos
 
 	git remote
 	
 	git remote -v
 
-### Vincular repositório local com um repositório remoto
-
-	git remote add origin git@github.com:leocomelli/curso-git.git
-	
 ### Exibir informações dos repositórios remotos
 
 	git remote show origin
 	
 ### Renomear um repositório remoto 
 
-	git remote rename origin curso-git
+	git remote rename origin main
 	
 ### Desvincular um repositório remoto
 	
-	git remote rm curso-git
+	git remote rm main
 
 ### Enviar arquivos/diretórios para o repositório remoto
-
 O primeiro **push** de um repositório deve conter o nome do repositório remoto e o branch.
+-	git push -u origin master
++	git push -u origin main
 
-	git push -u origin master
-	
 Os demais **pushes** não precisam dessa informação
 
 	git push
@@ -221,8 +220,8 @@ Os demais **pushes** não precisam dessa informação
 	git fetch
 	
 ### Clonar um repositório remoto já existente
-
-	git clone git@github.com:leocomelli/curso-git.git
+-	git clone git@github.com:jane-doe/main.git
++	git clone -b main git@github.com:jane-doe/<seu-repo>.git
 	
 ### Tags
 
@@ -440,4 +439,15 @@ Se o commit estiver com o problema, então ele deverá ser marcado como **ruim**
 Depois de encontrar o commit com problema, para retornar para o *HEAD* utilize:
 	
 	git bisect reset
- 	
+
+## Novos Comandos (Git 2.23+)
+
+* git switch \<branch\>           # alternar para outro branch
+* git switch -c \<new-branch\>    # criar e trocar para nova branch
+* git restore \<file\>            # descartar alterações no diretório de trabalho
+* git restore --staged \<file\>   # tirar arquivo da área de staged
+* git add -p                      # adicionar partes de arquivos interativamente
+* git worktree add \<path\> \<branch\>   # criar outra cópia de trabalho ligada ao repo
+* git sparse-checkout init        # habilitar sparse-checkout em clone parcial
+* git sparse-checkout set \<dir\> # definir quais pastas serão
+
