@@ -179,7 +179,7 @@ A alteração do diretório pode ser realizada através do comando abaixo:
 
 ### Vincular repositório local com um repositório remoto
 -	git remote add origin git@github.com:jane-doe/main.git
-+	git remote add origin git@github.com:jane-doe/<seu-repo>.git
++	git remote add origin git@github.com:jane-doe/meu-repo.git
 
 ### Exibir os repositórios remotos
 
@@ -200,9 +200,9 @@ A alteração do diretório pode ser realizada através do comando abaixo:
 	git remote rm main
 
 ### Enviar arquivos/diretórios para o repositório remoto
-O primeiro **push** de um repositório deve conter o nome do repositório remoto e o branch.
--	git push -u origin master
-+	git push -u origin main
+O primeiro **push** deve conter o nome do remoto e o branch:
+-	git push -u origin master  
++	git push -u origin main  
 
 Os demais **pushes** não precisam dessa informação
 
@@ -220,8 +220,8 @@ Os demais **pushes** não precisam dessa informação
 	git fetch
 	
 ### Clonar um repositório remoto já existente
--	git clone git@github.com:jane-doe/main.git
-+	git clone -b main git@github.com:jane-doe/<seu-repo>.git
+-	git clone -b main git@github.com:jane-doe/<seu-repo>.git
++	git clone -b main git@github.com:jane-doe/meu-repo.git
 	
 ### Tags
 
@@ -270,10 +270,10 @@ Neste caso, o ponteiro principal **HEAD** esta apontando para o branch chamado b
 
 	git checkout -b bug-456
 	
-##### Voltar para o branch principal (master)
+##### Voltar para o branch principal (main)
+-	git checkout master  
++	git checkout main  
 
-	git checkout master
-	
 ##### Resolver merge entre os branches
 
 	git merge bug-123

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Documentação Git</title>
+  <!-- Tailwind + Typography plugin -->
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+</head>
+<body class="bg-gray-100 p-3">
+  <main class="prose lg:prose-xl mx-auto bg-white p-8 rounded-lg shadow">
+    <div id="content">Carregando documentação…</div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    fetch('README.md')
+      .then(res  => res.text())
+      .then(md   => {
+        document.getElementById('content').innerHTML = marked.parse(md)
+      })
+      .catch(err => {
+        document.getElementById('content').textContent =
+          'Erro ao carregar README.md: ' + err
+      })
+  </script>
+</body>
+</html>
