@@ -2,67 +2,19 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Documentação Git • Comandos & Boas Práticas</title>
+  <title>Comandos do Git • Guia Rápido</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Documentação de comandos Git com exemplos práticos. Leia o README.md renderizado e acompanhe estrelas, forks e versão mais recente do repositório." />
-  <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="." />
+  <meta name="description" content="Comandos do Git com exemplos práticos. Leia o README.md renderizado e acompanhe estrelas, forks e versão do repositório." />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Documentação Git • Comandos & Boas Práticas" />
-  <meta property="og:description" content="README renderizado + métricas do GitHub (estrelas, forks) e faixa com a última tag." />
-  <meta property="og:url" content="." />
-  <!-- Opcional: <meta property="og:image" content="URL_DA_SUA_IMAGEM_OG" /> -->
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Documentação Git • Comandos & Boas Práticas" />
-  <meta name="twitter:description" content="README renderizado + métricas do GitHub (estrelas, forks) e faixa com a última tag." />
-
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"TechArticle",
-    "headline":"Documentação Git • Comandos & Boas Práticas",
-    "inLanguage":"pt-BR",
-    "about":"Git, comandos, boas práticas",
-    "author":{"@type":"Person","name":"Samuel Nunes da Silva"},
-    "mainEntityOfPage":{"@type":"WebPage","@id":"."}
-  }
-  </script>
+  <meta property="og:title" content="Comandos do Git • Guia Rápido" />
+  <meta property="og:description" content="README renderizado + métricas do GitHub (estrelas, forks), versão e busca na página." />
 
   <!-- Tailwind + Typography plugin -->
   <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
 
   <style>
-    /* Ribbon diagonal (última tag) - canto superior esquerdo */
-    .ribbon {
-      position: absolute;
-      left: -70px;
-      top: 24px;
-      transform: rotate(-45deg);
-      background: linear-gradient(90deg, #4f46e5, #7c3aed);
-      color: #fff;
-      padding: 6px 80px;
-      font-weight: 600;
-      box-shadow: 0 10px 20px rgba(79,70,229,0.35);
-      border-radius: .375rem;
-      white-space: nowrap;
-    }
-    .ribbon a { color: #fff; text-decoration: none; }
-    /* GitHub corner (link do repo) - canto superior direito */
-    .corner {
-      position: absolute; top: 0; right: 0;
-      transform: rotate(45deg) translate(35%, -65%);
-      background: #0f172a; color: #fff;
-      padding: 8px 60px; font-weight: 600;
-      border-radius: .375rem;
-      box-shadow: 0 10px 20px rgba(2,6,23,.35);
-      white-space: nowrap;
-    }
-    .corner:hover { background:#111827; }
     .badge {
       display:inline-flex; align-items:center; gap:.375rem;
       border:1px solid rgba(15,23,42,.08);
@@ -74,56 +26,78 @@
       background-size: 400% 100%; animation: shimmer 1.4s ease infinite;
     }
     @keyframes shimmer { 0%{background-position: 100% 0} 100%{background-position: 0 0} }
+    .highlight-focus { box-shadow: 0 0 0 3px rgba(124,58,237,.45); border-radius:.375rem; transition: box-shadow .2s ease; }
   </style>
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 text-slate-800">
-  <div class="relative max-w-6xl mx-auto px-4 md:px-6 py-6">
+<body class="min-h-screen bg-slate-50 text-slate-800">
+  <!-- NAVBAR FIXA -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-4 md:px-6 h-16 flex items-center gap-3">
+      <!-- Logo / Título -->
+      <a id="repo-link" href="#" target="_blank" rel="noopener noreferrer"
+         class="font-semibold text-slate-900 hover:text-violet-700">Comandos do Git</a>
 
-    <!-- Header / Hero -->
-    <header class="relative overflow-hidden rounded-2xl bg-white shadow">
-      <!-- Ribbon da versão -->
-      <span id="tag-ribbon" class="ribbon hidden">
+      <!-- Separador -->
+      <div class="hidden md:block h-6 w-px bg-slate-200"></div>
+
+      <!-- Versão (tag) -->
+      <span id="tag-chip" class="hidden badge text-violet-800 bg-violet-50 border-violet-100">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2a1 1 0 00-1 1v3H3a1 1 0 100 2h3v3a1 1 0 102 0V8h3a1 1 0 100-2H8V3a1 1 0 00-1-1z"/></svg>
         <a id="tag-link" href="#" target="_blank" rel="noopener noreferrer">v0.0.0</a>
       </span>
-      <!-- GitHub corner -->
-      <a id="repo-link" href="#" target="_blank" rel="noopener noreferrer"
-         class="corner hidden">Ver no GitHub</a>
 
-      <!-- Fundo decorativo suave -->
+      <!-- Métricas -->
+      <div class="flex items-center gap-2 ml-auto">
+        <a id="stars-badge" class="badge shimmer" href="#" target="_blank" rel="noopener noreferrer" aria-label="Estrelas do repositório">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.402 8.17L12 18.896l-7.336 3.871 1.402-8.17L.132 9.21l8.2-1.192z"/></svg>
+          <span id="stars-text">—</span>
+        </a>
+        <a id="forks-badge" class="badge shimmer" href="#" target="_blank" rel="noopener noreferrer" aria-label="Forks do repositório">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3a3 3 0 102.25 5 6 6 0 007.5 3.5A3 3 0 1018 9a3 3 0 00-2.25 1 4 4 0 01-7.5-2A3 3 0 006 3zm12 12a3 3 0 100 6 3 3 0 000-6z"/></svg>
+          <span id="forks-text">—</span>
+        </a>
+      </div>
+
+      <!-- Busca -->
+      <form id="search-form" class="hidden md:flex items-center gap-2 ml-3" onsubmit="return false;">
+        <input id="search-input" type="search" placeholder="Pesquisar no conteúdo…"
+               class="w-56 md:w-72 px-3 py-2 rounded-lg border border-slate-300 bg-white outline-none focus:ring-2 focus:ring-violet-400"
+               aria-label="Pesquisar no conteúdo">
+        <div class="flex items-center gap-1">
+          <button id="btn-prev" class="px-2.5 py-2 rounded-lg border border-slate-300 hover:bg-slate-100" title="Anterior">◀</button>
+          <button id="btn-next" class="px-2.5 py-2 rounded-lg border border-slate-300 hover:bg-slate-100" title="Próximo">▶</button>
+        </div>
+        <span id="search-count" class="text-sm text-slate-500 select-none">0/0</span>
+        <button id="btn-clear" class="px-2.5 py-2 rounded-lg border border-slate-300 hover:bg-slate-100" title="Limpar">Limpar</button>
+      </form>
+    </div>
+  </nav>
+
+  <!-- Espaço para não ficar atrás da navbar -->
+  <div class="h-16"></div>
+
+  <!-- Header / Hero -->
+  <header class="max-w-6xl mx-auto px-4 md:px-6">
+    <div class="relative overflow-hidden rounded-2xl bg-white shadow">
       <div class="absolute inset-0 pointer-events-none"
            style="background:
              radial-gradient(800px 300px at 100% 0%, rgba(79,70,229,.06), transparent 60%),
              radial-gradient(600px 250px at 0% 0%, rgba(124,58,237,.06), transparent 60%);">
       </div>
-
       <div class="relative p-6 md:p-10">
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">Documentação Git</h1>
-        <p class="mt-2 text-slate-600">README renderizado + métricas do repositório.</p>
-
-        <div class="mt-5 flex flex-wrap items-center gap-2">
-          <a id="stars-badge" class="badge shimmer" href="#" target="_blank" rel="noopener noreferrer" aria-label="Estrelas do repositório">
-            <!-- ícone estrela -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.402 8.17L12 18.896l-7.336 3.871 1.402-8.17L.132 9.21l8.2-1.192z"/></svg>
-            <span id="stars-text">—</span>
-          </a>
-
-          <a id="forks-badge" class="badge shimmer" href="#" target="_blank" rel="noopener noreferrer" aria-label="Forks do repositório">
-            <!-- ícone fork -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3a3 3 0 102.25 5 6 6 0 007.5 3.5A3 3 0 1018 9a3 3 0 00-2.25 1 4 4 0 01-7.5-2A3 3 0 006 3zm12 12a3 3 0 100 6 3 3 0 000-6z"/></svg>
-            <span id="forks-text">—</span>
-          </a>
-
-          <div id="topics" class="flex flex-wrap gap-2"></div>
-        </div>
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">Comandos do Git</h1>
+        <p class="mt-2 text-slate-600">README renderizado + métricas do repositório e busca rápida.</p>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- Conteúdo (README) -->
-    <main class="prose lg:prose-xl mx-auto bg-white p-8 mt-6 rounded-2xl shadow max-w-none w-[90%]">
-      <div id="content">Carregando documentação…</div>
-    </main>
-  </div>
+  <!-- Conteúdo (README) -->
+  <main class="max-w-6xl mx-auto px-4 md:px-6">
+    <section class="prose lg:prose-xl mx-auto bg-white p-8 mt-6 rounded-2xl shadow max-w-none w-[90%]">
+      <div id="content">Carregando conteúdo…</div>
+    </section>
+  </main>
 
   <!-- Lib Marked para renderizar Markdown -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
@@ -133,76 +107,57 @@
     const OWNER = 'samuelikz';
     const REPO  = 'Comandos-Git';
     // =================================
-
     const REPO_URL = `https://github.com/${OWNER}/${REPO}`;
 
-    // Atualiza links fixos do header
+    // Estado da busca
+    let matches = [];
+    let matchIndex = -1;
+    let lastQuery = '';
+
     function setStaticLinks() {
       const repoLink = document.getElementById('repo-link');
       repoLink.href = REPO_URL;
-      repoLink.classList.remove('hidden');
     }
 
-    // Render README.md
     async function renderReadme() {
       try {
         const res = await fetch('README.md');
         const md  = await res.text();
         document.getElementById('content').innerHTML = marked.parse(md);
+        document.getElementById('search-form').classList.remove('hidden');
       } catch (err) {
-        document.getElementById('content').textContent =
-          'Erro ao carregar README.md: ' + err;
+        document.getElementById('content').textContent = 'Erro ao carregar README.md: ' + err;
       }
     }
 
-    // Busca dados do repositório (estrelas, forks, tópicos)
+    // GitHub: estrelas, forks, tópicos e tag
     async function loadRepoStats() {
       try {
         const repoRes = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}`, {
           headers: { 'Accept': 'application/vnd.github+json' }
         });
-        if (!repoRes.ok) throw new Error('Falha ao buscar repo');
-        const data = await repoRes.json();
+        if (repoRes.ok) {
+          const data = await repoRes.json();
 
-        // Estrelas
-        const starsText  = document.getElementById('stars-text');
-        const starsBadge = document.getElementById('stars-badge');
-        starsText.textContent = (data.stargazers_count ?? 0).toLocaleString('pt-BR');
-        starsBadge.href = `${REPO_URL}/stargazers`;
-        starsBadge.classList.remove('shimmer');
+          // Estrelas
+          const starsText  = document.getElementById('stars-text');
+          const starsBadge = document.getElementById('stars-badge');
+          starsText.textContent = (data.stargazers_count ?? 0).toLocaleString('pt-BR');
+          starsBadge.href = `${REPO_URL}/stargazers`;
+          starsBadge.classList.remove('shimmer');
 
-        // Forks
-        const forksText  = document.getElementById('forks-text');
-        const forksBadge = document.getElementById('forks-badge');
-        forksText.textContent = (data.forks_count ?? 0).toLocaleString('pt-BR');
-        forksBadge.href = `${REPO_URL}/network/members`;
-        forksBadge.classList.remove('shimmer');
-
-        // Tópicos como badges
-        const topicsWrap = document.getElementById('topics');
-        topicsWrap.innerHTML = '';
-        if (Array.isArray(data.topics) && data.topics.length) {
-          data.topics.forEach(t => {
-            const a = document.createElement('a');
-            a.className = 'badge';
-            a.href = `https://github.com/topics/${encodeURIComponent(t)}`;
-            a.target = '_blank'; a.rel = 'noopener noreferrer';
-            a.textContent = t;
-            topicsWrap.appendChild(a);
-          });
+          // Forks
+          const forksText  = document.getElementById('forks-text');
+          const forksBadge = document.getElementById('forks-badge');
+          forksText.textContent = (data.forks_count ?? 0).toLocaleString('pt-BR');
+          forksBadge.href = `${REPO_URL}/network/members`;
+          forksBadge.classList.remove('shimmer');
         }
-      } catch (e) {
-        // Silencioso: deixa badges em shimmer se falhar
-        console.warn(e);
-      }
-    }
+      } catch (e) { console.warn(e); }
 
-    // Faixa com a última tag (release ou tag comum)
-    async function loadLatestTag() {
-      const ribbon = document.getElementById('tag-ribbon');
-      const link   = document.getElementById('tag-link');
-
-      // Tenta release mais recente
+      // Versão (release ou tag)
+      const chip = document.getElementById('tag-chip');
+      const link = document.getElementById('tag-link');
       try {
         const relRes = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/releases/latest`, {
           headers: { 'Accept': 'application/vnd.github+json' }
@@ -212,13 +167,12 @@
           if (rel && rel.tag_name) {
             link.textContent = rel.tag_name;
             link.href = rel.html_url || `${REPO_URL}/releases`;
-            ribbon.classList.remove('hidden');
+            chip.classList.remove('hidden');
             return;
           }
         }
       } catch {}
 
-      // Fallback: pega a primeira tag
       try {
         const tagRes = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/tags?per_page=1`, {
           headers: { 'Accept': 'application/vnd.github+json' }
@@ -228,29 +182,95 @@
           if (Array.isArray(tags) && tags.length) {
             link.textContent = tags[0].name;
             link.href = `${REPO_URL}/tree/${encodeURIComponent(tags[0].name)}`;
-            ribbon.classList.remove('hidden');
+            chip.classList.remove('hidden');
           }
         }
       } catch {}
     }
 
-    // SEO dinâmico mínimo (ajusta canonical/og url)
-    function tweakSeoUrls() {
-      const url = location.href;
-      document.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
-      document.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
+    // ===== Busca no conteúdo =====
+    function clearHighlights() {
+      matches.forEach(el => el.classList.remove('highlight-focus'));
+      matches = [];
+      matchIndex = -1;
+      updateCounter();
     }
 
-    // (Opcional) Autenticar para aumentar limite de rate da API
-    // const GITHUB_TOKEN = ''; // adicione um token se precisar
-    // e inclua em headers: { Authorization: `Bearer ${GITHUB_TOKEN}` }
+    function updateCounter() {
+      const sc = document.getElementById('search-count');
+      sc.textContent = matches.length ? `${matchIndex + 1}/${matches.length}` : '0/0';
+    }
+
+    function collectMatches(query) {
+      clearHighlights();
+      if (!query) return;
+
+      const sel = '#content h1, #content h2, #content h3, #content h4, #content h5, #content h6, #content p, #content li, #content code';
+      const nodes = Array.from(document.querySelectorAll(sel));
+      const q = query.toLowerCase();
+
+      nodes.forEach(n => {
+        if (n.textContent.toLowerCase().includes(q)) {
+          matches.push(n);
+        }
+      });
+      if (matches.length) {
+        matchIndex = 0;
+        focusMatch();
+      }
+      updateCounter();
+    }
+
+    function focusMatch() {
+      matches.forEach(el => el.classList.remove('highlight-focus'));
+      const el = matches[matchIndex];
+      if (!el) return;
+      el.classList.add('highlight-focus');
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function nextMatch() {
+      if (!matches.length) return;
+      matchIndex = (matchIndex + 1) % matches.length;
+      focusMatch(); updateCounter();
+    }
+
+    function prevMatch() {
+      if (!matches.length) return;
+      matchIndex = (matchIndex - 1 + matches.length) % matches.length;
+      focusMatch(); updateCounter();
+    }
+
+    function onSearchInput() {
+      const q = document.getElementById('search-input').value.trim();
+      if (q === lastQuery) return;
+      lastQuery = q;
+      collectMatches(q);
+    }
+
+    function bindSearchUI() {
+      const input = document.getElementById('search-input');
+      const btnNext = document.getElementById('btn-next');
+      const btnPrev = document.getElementById('btn-prev');
+      const btnClear = document.getElementById('btn-clear');
+
+      input.addEventListener('input', onSearchInput);
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); onSearchInput(); }
+      });
+      btnNext.addEventListener('click', () => nextMatch());
+      btnPrev.addEventListener('click', () => prevMatch());
+      btnClear.addEventListener('click', () => {
+        input.value = ''; lastQuery = '';
+        clearHighlights(); input.focus();
+      });
+    }
 
     document.addEventListener('DOMContentLoaded', async () => {
-      tweakSeoUrls();
       setStaticLinks();
-      renderReadme();
+      bindSearchUI();
+      await renderReadme();
       loadRepoStats();
-      loadLatestTag();
     });
   </script>
 </body>
